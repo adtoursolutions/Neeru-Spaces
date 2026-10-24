@@ -7,7 +7,43 @@
 const ADMIN_PASSWORD = 'admin123';
 const STORAGE_KEYS = {
   properties: 'neeru_properties',
+  propertiesReset: 'neeru_properties_reset_v1',
+  keerthiListingSeeded: 'neeru_keerthi_listing_seeded_v1',
+  keerthiPhotosUpdated: 'neeru_keerthi_photos_updated_v5',
   admin: 'neeru_admin_auth'
+};
+const DEFAULT_PROPERTY = {
+  id: 'keerthi-office-clinic',
+  title: 'Office / Clinic Space for Rent',
+  ownerName: 'Dr Keerthi',
+  contact: '8220418415',
+  whatsapp: '918220418415',
+  location: 'Vinayakanagar Vuda colony, MIG 1/151, Vinayaka Nagar, Gonthinavanipalem, Pedagantyada, Gajuwaka, Andhra Pradesh 530044',
+  mapUrl: 'https://maps.app.goo.gl/HF9Xv4iXHdMkTDXo9?g_st=ac',
+  price: 25000,
+  deposit: 50000,
+  priceLabel: '₹25,000 / month · Deposit ₹50,000',
+  type: 'Office Space',
+  category: 'Commercial',
+  beds: 0,
+  baths: 0,
+  area: 'Approx. 1,000 sft',
+  parking: '—',
+  furnished: '—',
+  badges: ['Featured', 'Verified'],
+  featured: true,
+  images: [
+    'photos/DrKeerthi/Building.jpeg',
+    'photos/DrKeerthi/enterance.jpeg',
+    'photos/DrKeerthi/office1.jpeg',
+    'photos/DrKeerthi/office2.jpeg',
+    'photos/DrKeerthi/office3.jpeg',
+    'photos/DrKeerthi/office4.jpeg',
+    'photos/DrKeerthi/lobby.jpeg',
+    'photos/DrKeerthi/kitchen.jpeg'
+  ],
+  desc: 'Commercial space suitable for offices, clinics, physiotherapy, or diagnostic labs. Rent is ₹25,000 per month with a ₹50,000 deposit. Approximately 1,000 sft.',
+  amenities: ['Suitable for Offices', 'Clinics', 'Physiotherapy', 'Diagnostic Labs']
 };
 
 /* ---------- Auth ---------- */
@@ -52,12 +88,46 @@ logoutBtn.addEventListener('click', () => {
 
 /* ---------- Data helpers ---------- */
 function getProperties() {
+  if (localStorage.getItem(STORAGE_KEYS.propertiesReset) !== 'true') {
+    localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify([DEFAULT_PROPERTY]));
+    localStorage.setItem(STORAGE_KEYS.propertiesReset, 'true');
+    localStorage.setItem(STORAGE_KEYS.keerthiListingSeeded, 'true');
+    return [DEFAULT_PROPERTY];
+  }
+
+  let properties = [];
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.properties);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    properties = Array.isArray(parsed) ? parsed : [];
   } catch (e) {
-    return [];
+    properties = [];
   }
+
+  if (localStorage.getItem(STORAGE_KEYS.keerthiListingSeeded) !== 'true') {
+    if (!properties.some(property => property.id === DEFAULT_PROPERTY.id)) properties.unshift(DEFAULT_PROPERTY);
+    localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    localStorage.setItem(STORAGE_KEYS.keerthiListingSeeded, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEYS.keerthiPhotosUpdated) !== 'true') {
+    const listing = properties.find(property => property.id === DEFAULT_PROPERTY.id);
+    if (listing) {
+      listing.images = DEFAULT_PROPERTY.images.slice();
+      localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    }
+    localStorage.setItem(STORAGE_KEYS.keerthiPhotosUpdated, 'true');
+  }
+
+  if (localStorage.getItem('neeru_keerthi_address_updated_v1') !== 'true') {
+    const listing = properties.find(property => property.id === DEFAULT_PROPERTY.id);
+    if (listing) {
+      listing.location = DEFAULT_PROPERTY.location;
+      localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    }
+    localStorage.setItem('neeru_keerthi_address_updated_v1', 'true');
+  }
+  return properties;
 }
 function saveProperties(list) {
   localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(list));
@@ -121,14 +191,14 @@ const formOverlay = document.getElementById('formOverlay');
 const propertyForm = document.getElementById('propertyForm');
 const formTitle = document.getElementById('formTitle');
 const imagePreview = document.getElementById('imagePreview');
-let pendingImageData = null;
+let pendingImageData = [];
 
 const fields = ['p-id','p-title','p-location','p-price','p-type','p-category','p-beds','p-baths','p-area','p-parking','p-furnished','p-desc','p-amenities'];
 
 function openForm(id) {
   propertyForm.reset();
   imagePreview.innerHTML = '';
-  pendingImageData = null;
+  pendingImageData = [];
   document.getElementById('p-featured').checked = false;
   document.getElementById('p-new').checked = false;
 
@@ -139,6 +209,10 @@ function openForm(id) {
     document.getElementById('p-id').value = p.id;
     document.getElementById('p-title').value = p.title;
     document.getElementById('p-location').value = p.location;
+    document.getElementById('p-owner').value = p.ownerName || '';
+    document.getElementById('p-contact').value = p.contact || '';
+    document.getElementById('p-deposit').value = p.deposit || '';
+    document.getElementById('p-map-url').value = p.mapUrl || '';
     document.getElementById('p-price').value = p.price;
     document.getElementById('p-type').value = p.type;
     document.getElementById('p-category').value = p.category;
@@ -151,8 +225,9 @@ function openForm(id) {
     document.getElementById('p-amenities').value = (p.amenities || []).join(', ');
     document.getElementById('p-featured').checked = !!p.featured;
     document.getElementById('p-new').checked = (p.badges || []).includes('New');
-    pendingImageData = (p.images && p.images[0]) || null;
-    if (pendingImageData) imagePreview.innerHTML = `<img src="${pendingImageData}" alt="Preview">`;
+    pendingImageData = Array.isArray(p.images) ? p.images.slice() : [];
+    imagePreview.innerHTML = pendingImageData
+      .map((src, index) => `<img src="${src}" alt="Property photo ${index + 1} preview">`).join('');
   } else {
     formTitle.textContent = 'Add Property';
     document.getElementById('p-id').value = '';
@@ -171,14 +246,18 @@ document.getElementById('formCancel').addEventListener('click', closeForm);
 formOverlay.addEventListener('click', (e) => { if (e.target === formOverlay) closeForm(); });
 
 document.getElementById('p-image').addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    pendingImageData = reader.result;
-    imagePreview.innerHTML = `<img src="${pendingImageData}" alt="Preview">`;
-  };
-  reader.readAsDataURL(file);
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  Promise.all(files.map(file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  }))).then(images => {
+    pendingImageData = images;
+    imagePreview.innerHTML = images
+      .map((src, index) => `<img src="${src}" alt="Property photo ${index + 1} preview">`).join('');
+  }).catch(() => showToast('Could not read one or more selected photos.'));
 });
 
 propertyForm.addEventListener('submit', (e) => {
@@ -200,8 +279,15 @@ propertyForm.addEventListener('submit', (e) => {
     id,
     title: document.getElementById('p-title').value.trim(),
     location: document.getElementById('p-location').value.trim(),
+    ownerName: document.getElementById('p-owner').value.trim(),
+    contact: document.getElementById('p-contact').value.trim().replace(/\D/g, ''),
+    whatsapp: document.getElementById('p-contact').value.trim().replace(/\D/g, '')
+      ? `91${document.getElementById('p-contact').value.trim().replace(/\D/g, '')}`
+      : '',
+    mapUrl: document.getElementById('p-map-url').value.trim(),
     price,
-    priceLabel: `₹${price.toLocaleString('en-IN')} / month`,
+    deposit: parseInt(document.getElementById('p-deposit').value, 10) || 0,
+    priceLabel: `₹${price.toLocaleString('en-IN')} / month${document.getElementById('p-deposit').value ? ` · Deposit ₹${Number(document.getElementById('p-deposit').value).toLocaleString('en-IN')}` : ''}`,
     type: document.getElementById('p-type').value,
     category: document.getElementById('p-category').value,
     beds: parseInt(document.getElementById('p-beds').value, 10) || 0,
@@ -211,7 +297,7 @@ propertyForm.addEventListener('submit', (e) => {
     furnished: document.getElementById('p-furnished').value,
     badges,
     featured: isFeatured,
-    images: pendingImageData ? [pendingImageData, pendingImageData, pendingImageData] : [fallbackImg(), fallbackImg(), fallbackImg()],
+    images: pendingImageData.length ? pendingImageData : [fallbackImg()],
     desc: document.getElementById('p-desc').value.trim(),
     amenities: amenities.length ? amenities : ['Security', 'Water Supply']
   };

@@ -4,116 +4,46 @@
    NEERU SPACES — script.js
    ============================================================ */
 
-/* ---------- Default property data (used to seed localStorage) ---------- */
-const DEFAULT_PROPERTIES = [
-  {
-    id: 'p1', title: '2BHK Modern Apartment', location: 'MVP Colony, Visakhapatnam',
-    price: 18000, priceLabel: '₹18,000 / month', type: 'Apartment', category: 'Residential',
-    beds: 2, baths: 2, area: '1150 sqft', parking: 'Yes', furnished: 'Semi-Furnished',
-    badges: ['New', 'Verified'], featured: false,
-    images: [
-      'https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=900',
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=900',
-      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=900'
-    ],
-    desc: 'A bright, well-ventilated 2BHK in the heart of MVP Colony, close to schools and hospitals. Ideal for small families.',
-    amenities: ['Lift', 'Power Backup', '24x7 Water', 'Security', 'Children\'s Play Area']
-  },
-  {
-    id: 'p2', title: 'Independent Villa with Garden', location: 'Madhurawada, Visakhapatnam',
-    price: 45000, priceLabel: '₹45,000 / month', type: 'Villa', category: 'Residential',
-    beds: 4, baths: 4, area: '3200 sqft', parking: 'Yes (2 cars)', furnished: 'Fully Furnished',
-    badges: ['Featured', 'Verified'], featured: true,
-    images: [
-      'https://images.unsplash.com/photo-1600566753151-384129cf4e3e?q=80&w=900',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=900',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=900'
-    ],
-    desc: 'Spacious 4BHK independent villa with a private garden and terrace, tucked in a quiet Madhurawada layout.',
-    amenities: ['Private Garden', 'Terrace', 'Modular Kitchen', 'Servant Room', 'Covered Parking']
-  },
-  {
-    id: 'p3', title: 'Prime Commercial Shop', location: 'Gajuwaka, Visakhapatnam',
-    price: 30000, priceLabel: '₹30,000 / month', type: 'Commercial', category: 'Commercial',
-    beds: 0, baths: 1, area: '800 sqft', parking: 'Street Parking', furnished: 'Unfurnished',
-    badges: ['Verified'], featured: false,
-    images: [
-      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=900',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900'
-    ],
-    desc: 'High-footfall shop space right on Gajuwaka - Scindia Road, perfect for retail or showroom use.',
-    amenities: ['Main Road Facing', 'Shutter Front', 'Power Load 10kW', 'Restroom']
-  },
-  {
-    id: 'p4', title: 'Cozy 1BHK for Bachelors', location: 'Dwaraka Nagar, Visakhapatnam',
-    price: 9500, priceLabel: '₹9,500 / month', type: 'Apartment', category: 'Residential',
-    beds: 1, baths: 1, area: '550 sqft', parking: 'Two-wheeler only', furnished: 'Semi-Furnished',
-    badges: ['New'], featured: false,
-    images: [
-      'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?q=80&w=900',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=900',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=900'
-    ],
-    desc: 'Compact and affordable 1BHK, walking distance to bus stops and local markets. Great for working professionals.',
-    amenities: ['Wi-Fi Ready', 'Water Purifier Point', 'Security', 'Balcony']
-  },
-  {
-    id: 'p5', title: 'Executive Office Space', location: 'Seethammadhara, Visakhapatnam',
-    price: 55000, priceLabel: '₹55,000 / month', type: 'Office Space', category: 'Commercial',
-    beds: 0, baths: 2, area: '2000 sqft', parking: 'Yes (6 cars)', furnished: 'Fully Furnished',
-    badges: ['Featured', 'Verified'], featured: true,
-    images: [
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=900',
-      'https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=900',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=900'
-    ],
-    desc: 'Ready-to-move office floor with cabins, a conference room, and a pantry — ideal for a growing team.',
-    amenities: ['Conference Room', 'Pantry', 'Central AC', 'Fiber Internet', 'Reception Area']
-  },
-  {
-    id: 'p6', title: 'Residential Plot (200 sq.yd)', location: 'Pendurthi, Visakhapatnam',
-    price: 12000, priceLabel: '₹12,000 / month lease', type: 'Land', category: 'Residential',
-    beds: 0, baths: 0, area: '200 sq.yd', parking: '—', furnished: '—',
-    badges: ['Verified'], featured: false,
-    images: [
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=900',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=900',
-      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=900'
-    ],
-    desc: 'A clear, corner residential plot in a developing Pendurthi layout with approach road on two sides.',
-    amenities: ['Corner Plot', 'Approach Road', 'Clear Title', 'Boundary Wall']
-  },
-  {
-    id: 'p7', title: 'Warehouse & Storage Unit', location: 'Gajuwaka Industrial Area',
-    price: 65000, priceLabel: '₹65,000 / month', type: 'Warehouse', category: 'Commercial',
-    beds: 0, baths: 1, area: '6000 sqft', parking: 'Truck Access', furnished: 'Unfurnished',
-    badges: ['Verified'], featured: false,
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900',
-      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=900',
-      'https://images.unsplash.com/photo-1600566753151-384129cf4e3e?q=80&w=900'
-    ],
-    desc: 'High-clearance warehouse with dock access and three-phase power, suited for storage or light manufacturing.',
-    amenities: ['Loading Dock', '3-Phase Power', 'Security Cabin', 'Truck Turning Space']
-  },
-  {
-    id: 'p8', title: 'Luxury 3BHK Penthouse', location: 'Beach Road, Visakhapatnam',
-    price: 75000, priceLabel: '₹75,000 / month', type: 'Luxury Home', category: 'Residential',
-    beds: 3, baths: 3, area: '2600 sqft', parking: 'Yes (2 cars)', furnished: 'Fully Furnished',
-    badges: ['Featured', 'New', 'Verified'], featured: true,
-    images: [
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=900',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=900',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=900'
-    ],
-    desc: 'A stunning penthouse with sea-facing balconies, premium interiors, and a private terrace lounge.',
-    amenities: ['Sea View', 'Private Terrace', 'Modular Kitchen', 'Home Theatre Room', 'Covered Parking']
-  }
-];
+/* ---------- Owner-provided featured listing ---------- */
+const DEFAULT_PROPERTIES = [{
+  id: 'keerthi-office-clinic',
+  title: 'Office / Clinic Space for Rent',
+  ownerName: 'Dr Keerthi',
+  contact: '8220418415',
+  whatsapp: '918220418415',
+  location: 'Vinayakanagar Vuda colony, MIG 1/151, Vinayaka Nagar, Gonthinavanipalem, Pedagantyada, Gajuwaka, Andhra Pradesh 530044',
+  mapUrl: 'https://maps.app.goo.gl/HF9Xv4iXHdMkTDXo9?g_st=ac',
+  price: 25000,
+  deposit: 50000,
+  priceLabel: '₹25,000 / month · Deposit ₹50,000',
+  type: 'Office Space',
+  category: 'Commercial',
+  beds: 0,
+  baths: 0,
+  area: 'Approx. 1,000 sft',
+  parking: '—',
+  furnished: '—',
+  badges: ['Featured', 'Verified'],
+  featured: true,
+  images: [
+    'photos/DrKeerthi/Building.jpeg',
+    'photos/DrKeerthi/enterance.jpeg',
+    'photos/DrKeerthi/office1.jpeg',
+    'photos/DrKeerthi/office2.jpeg',
+    'photos/DrKeerthi/office3.jpeg',
+    'photos/DrKeerthi/office4.jpeg',
+    'photos/DrKeerthi/lobby.jpeg',
+    'photos/DrKeerthi/kitchen.jpeg'
+  ],
+  desc: 'Commercial space suitable for offices, clinics, physiotherapy, or diagnostic labs. Rent is ₹25,000 per month with a ₹50,000 deposit. Approximately 1,000 sft.',
+  amenities: ['Suitable for Offices', 'Clinics', 'Physiotherapy', 'Diagnostic Labs']
+}];
 
 const STORAGE_KEYS = {
   properties: 'neeru_properties',
+  propertiesReset: 'neeru_properties_reset_v1',
+  keerthiListingSeeded: 'neeru_keerthi_listing_seeded_v1',
+  keerthiPhotosUpdated: 'neeru_keerthi_photos_updated_v5',
   favorites: 'neeru_favorites',
   theme: 'neeru_theme',
   admin: 'neeru_admin_auth'
@@ -121,17 +51,48 @@ const STORAGE_KEYS = {
 
 /* ---------- Seed localStorage on first load ---------- */
 function getProperties() {
-  const raw = localStorage.getItem(STORAGE_KEYS.properties);
-  if (!raw) {
+  if (localStorage.getItem(STORAGE_KEYS.propertiesReset) !== 'true') {
     localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(DEFAULT_PROPERTIES));
+    localStorage.setItem(STORAGE_KEYS.propertiesReset, 'true');
+    localStorage.setItem(STORAGE_KEYS.keerthiListingSeeded, 'true');
     return DEFAULT_PROPERTIES.slice();
   }
+
+  const raw = localStorage.getItem(STORAGE_KEYS.properties);
+  let properties = [];
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length ? parsed : DEFAULT_PROPERTIES.slice();
+    properties = Array.isArray(parsed) ? parsed : [];
   } catch (e) {
-    return DEFAULT_PROPERTIES.slice();
+    properties = [];
   }
+
+  if (localStorage.getItem(STORAGE_KEYS.keerthiListingSeeded) !== 'true') {
+    if (!properties.some(property => property.id === DEFAULT_PROPERTIES[0].id)) {
+      properties.unshift(DEFAULT_PROPERTIES[0]);
+    }
+    localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    localStorage.setItem(STORAGE_KEYS.keerthiListingSeeded, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEYS.keerthiPhotosUpdated) !== 'true') {
+    const listing = properties.find(property => property.id === DEFAULT_PROPERTIES[0].id);
+    if (listing) {
+      listing.images = DEFAULT_PROPERTIES[0].images.slice();
+      localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    }
+    localStorage.setItem(STORAGE_KEYS.keerthiPhotosUpdated, 'true');
+  }
+
+  if (localStorage.getItem('neeru_keerthi_address_updated_v1') !== 'true') {
+    const listing = properties.find(property => property.id === DEFAULT_PROPERTIES[0].id);
+    if (listing) {
+      listing.location = DEFAULT_PROPERTIES[0].location;
+      localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(properties));
+    }
+    localStorage.setItem('neeru_keerthi_address_updated_v1', 'true');
+  }
+  return properties;
 }
 
 function getFavorites() {
@@ -185,7 +146,7 @@ window.addEventListener('load', () => {
   }
   animateGlow();
 
-  const hoverables = 'a, button, input, select, textarea, .property-card, .cat-card, .service-card';
+  const hoverables = 'a, button, input, select, textarea, .property-card, .service-card';
   document.addEventListener('mouseover', (e) => {
     if (e.target.closest(hoverables)) dot.classList.add('grow');
   });
@@ -414,6 +375,11 @@ function badgeClass(name) {
 function propertyCardHTML(p, favorites) {
   const isFav = favorites.includes(p.id);
   const badges = p.badges.map(b => `<span class="badge ${badgeClass(b)}">${b}</span>`).join('');
+  const whatsappNumber = p.whatsapp || (p.contact ? `91${p.contact.replace(/\D/g, '')}` : '916281738239');
+  const specs = propertySpecs(p);
+  const locationMarkup = `<p class="property-loc">📍 ${p.location}</p>${p.mapUrl
+    ? `<a class="property-map-link" href="${p.mapUrl}" target="_blank" rel="noopener">Google Maps ↗</a>`
+    : ''}`;
   return `
   <article class="property-card tilt-card" data-id="${p.id}">
     <div class="property-media">
@@ -424,20 +390,24 @@ function propertyCardHTML(p, favorites) {
     <div class="property-body">
       <div class="property-price">${p.priceLabel}</div>
       <h3 class="property-title">${p.title}</h3>
-      <p class="property-loc">📍 ${p.location}</p>
-      <div class="property-specs">
-        <span>🛏 ${p.beds} Beds</span>
-        <span>🛁 ${p.baths} Baths</span>
-        <span>📐 ${p.area}</span>
-        <span>🚗 ${p.parking}</span>
-        <span>🛋 ${p.furnished}</span>
-      </div>
+      ${locationMarkup}
+      <div class="property-specs"${specs.length ? '' : ' hidden'}>${specs.join('')}</div>
       <div class="property-actions">
         <button class="btn btn-outline" data-view="${p.id}">View Details</button>
-        <a class="btn btn-primary" href="https://wa.me/916281738239?text=${encodeURIComponent('Hi, I\'m interested in ' + p.title + ' (' + p.location + ')')}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-primary" href="https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hi, I\'m interested in ' + p.title + ' (' + p.location + ')')}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </article>`;
+}
+
+function propertySpecs(p, detail = false) {
+  const specs = [];
+  if (Number(p.beds) > 0) specs.push(`<span>🛏 ${p.beds} ${detail ? 'Bedrooms' : 'Beds'}</span>`);
+  if (Number(p.baths) > 0) specs.push(`<span>🛁 ${p.baths} ${detail ? 'Bathrooms' : 'Baths'}</span>`);
+  if (p.area && p.area !== '—') specs.push(`<span>📐 ${p.area}</span>`);
+  if (p.parking && p.parking !== '—') specs.push(`<span>🚗 ${p.parking}</span>`);
+  if (p.furnished && p.furnished !== '—') specs.push(`<span>🛋 ${p.furnished}</span>`);
+  return specs;
 }
 
 let currentProperties = [];
@@ -500,17 +470,33 @@ function initTiltEffect() {
 function openModal(id) {
   const p = currentProperties.find(item => item.id === id);
   if (!p) return;
-  document.getElementById('modalGallery').innerHTML = p.images.slice(0, 3)
+  document.getElementById('modalGallery').innerHTML = p.images
     .map(src => `<img src="${src}" alt="${p.title} photo" loading="lazy">`).join('');
   document.getElementById('modalBadges').innerHTML = p.badges.map(b => `<span class="badge ${badgeClass(b)}">${b}</span>`).join('');
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalLocation').textContent = '📍 ' + p.location;
   document.getElementById('modalPrice').textContent = p.priceLabel;
-  document.getElementById('modalSpecs').innerHTML = `
-    <span>🛏 ${p.beds} Bedrooms</span><span>🛁 ${p.baths} Bathrooms</span>
-    <span>📐 ${p.area}</span><span>🚗 ${p.parking}</span><span>🛋 ${p.furnished}</span>`;
+  const modalSpecs = document.getElementById('modalSpecs');
+  const specs = propertySpecs(p, true);
+  modalSpecs.innerHTML = specs.join('');
+  modalSpecs.hidden = !specs.length;
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalAmenities').innerHTML = p.amenities.map(a => `<span>${a}</span>`).join('');
+
+  const mapFrame = document.getElementById('modalMapFrame');
+  const mapLink = document.getElementById('modalMapLink');
+  mapFrame.hidden = !!p.mapUrl;
+  mapLink.hidden = !p.mapUrl;
+  if (p.mapUrl) mapLink.href = p.mapUrl;
+
+  const ownerName = p.ownerName || 'Neeru Spaces';
+  const ownerPhone = p.contact || '6281738239';
+  const ownerWhatsapp = p.whatsapp || (p.contact ? `91${p.contact.replace(/\D/g, '')}` : '916281738239');
+  document.getElementById('modalOwnerName').textContent = ownerName;
+  document.getElementById('modalOwnerRole').textContent = p.ownerName
+    ? `Property Owner · +91 ${ownerPhone}`
+    : 'Listing Consultant';
+  document.getElementById('modalCallOwner').href = `tel:+91${ownerPhone}`;
 
   const overlay = document.getElementById('propertyModal');
   overlay.classList.add('open');
@@ -518,7 +504,7 @@ function openModal(id) {
   document.body.style.overflow = 'hidden';
 
   const waLink = overlay.querySelector('.modal-owner-actions .btn-primary');
-  waLink.href = `https://wa.me/916281738239?text=${encodeURIComponent('Hi, I\'m interested in ' + p.title + ' (' + p.location + ')')}`;
+  waLink.href = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent('Hi, I\'m interested in ' + p.title + ' (' + p.location + ')')}`;
 }
 
 function closeModal() {
@@ -708,12 +694,6 @@ document.getElementById('playBtn')?.addEventListener('click', () => {
     form.reset();
   });
 })();
-
-document.getElementById('newsletterForm')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  showToast('Subscribed! Watch your inbox for new listings.');
-  e.target.reset();
-});
 
 /* ============================================================
    TOAST NOTIFICATIONS

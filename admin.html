@@ -90,8 +90,24 @@
           <input type="text" id="p-location" required placeholder="e.g. MVP Colony, Visakhapatnam">
         </div>
         <div class="form-row">
+          <label for="p-owner">Property Owner</label>
+          <input type="text" id="p-owner" placeholder="e.g. Dr Keerthi">
+        </div>
+        <div class="form-row">
+          <label for="p-contact">Owner Contact Number</label>
+          <input type="tel" id="p-contact" placeholder="10-digit mobile number">
+        </div>
+        <div class="form-row">
           <label for="p-price">Price (₹ / month)</label>
           <input type="number" id="p-price" required min="0" placeholder="e.g. 18000">
+        </div>
+        <div class="form-row">
+          <label for="p-deposit">Deposit (₹)</label>
+          <input type="number" id="p-deposit" min="0" placeholder="e.g. 50000">
+        </div>
+        <div class="form-row form-row-full">
+          <label for="p-map-url">Google Maps Link</label>
+          <input type="url" id="p-map-url" placeholder="https://maps.app.goo.gl/…">
         </div>
         <div class="form-row">
           <label for="p-type">Property Type</label>
@@ -147,8 +163,9 @@
           <input type="text" id="p-amenities" placeholder="e.g. Lift, Power Backup, Security">
         </div>
         <div class="form-row form-row-full">
-          <label for="p-image">Property Image (local preview)</label>
-          <input type="file" id="p-image" accept="image/*">
+          <label for="p-image">Property Photos</label>
+          <input type="file" id="p-image" accept="image/*" multiple>
+          <small>Select one or more photos. Choosing new photos replaces the current gallery.</small>
           <div class="image-preview" id="imagePreview"></div>
         </div>
         <div class="form-row">

@@ -10,6 +10,16 @@ For the best experience with the contact form's embedded maps and Google Fonts, 
 
 > Tip: some browsers restrict `fetch`/module features on `file://` URLs. This site avoids those APIs, but if you ever see blank iframes for Google Maps, serving the folder with a simple local server (e.g. `npx serve` or the VS Code "Live Server" extension) will resolve it.
 
+## Publish with GitHub Pages
+
+The workflow at `.github/workflows/pages.yml` deploys the site whenever `main` or `master` is pushed.
+
+1. Create a GitHub repository and upload/push the contents of this project folder to its `main` branch.
+2. In the repository, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**.
+3. Open the **Actions** tab and wait for **Deploy Neeru Spaces to GitHub Pages** to complete. GitHub will show the published URL in the deployment details and Pages settings.
+
+**Important:** the admin panel is a frontend-only prototype. Its password is visible in the JavaScript, and property changes are stored only in each visitor's browser `localStorage`; they are not shared with other visitors or devices. Do not rely on this admin password to protect private data. A shared public listing system requires a backend/database and server-side authentication.
+
 ## File structure
 
 ```
@@ -35,7 +45,7 @@ Visit `admin.html` directly (it is not linked from the public navigation).
 - Mark listings as **Featured** or **New**
 - Changes save to `localStorage` under the key `neeru_properties` and appear immediately on the main site (refresh `index.html`, or it updates live if both pages are open in different tabs of the same browser)
 
-**Note:** this is a local-storage-only prototype — there is no server, so data is scoped to a single browser and device. Clearing your browser storage will reset listings back to the 8 demo properties.
+**Note:** this is a local-storage-only prototype — there is no server, so data is scoped to a single browser and device. The property list starts empty; add listings through the Admin Panel.
 
 ## Key features implemented
 
@@ -44,7 +54,7 @@ Visit `admin.html` directly (it is not linked from the public navigation).
 - Sticky glass navbar with mega menu, scroll progress bar, and dark/light mode toggle
 - Full-screen hero with background slideshow, typing animation, floating glass stat cards, and parallax
 - Property search & filter (location, type, budget, bedrooms, category)
-- 8 demo properties with badges, tilt-hover cards, and a detail modal (gallery, amenities, map, WhatsApp inquiry)
+- Admin-managed properties with badges, tilt-hover cards, and a detail modal (gallery, amenities, map, WhatsApp inquiry)
 - Property categories, "Why Choose Us," Services, animated counters, and a process timeline
 - Auto-playing testimonial slider, scrolling client-logo marquee, masonry gallery with keyboard-navigable lightbox
 - FAQ accordion, validated contact form with success toast + confetti, newsletter signup
@@ -54,7 +64,7 @@ Visit `admin.html` directly (it is not linked from the public navigation).
 
 ## Customizing content
 
-- **Properties:** edit the `DEFAULT_PROPERTIES` array at the top of `script.js`, or use the Admin Panel.
+- **Properties:** use the Admin Panel to add, edit, and delete listings.
 - **Colors/fonts:** all design tokens live at the top of `style.css` under `:root`.
 - **Contact details:** phone, WhatsApp, and address appear in `index.html` (Contact section, Footer, and floating buttons) and in the JSON-LD block in the `<head>`.
 

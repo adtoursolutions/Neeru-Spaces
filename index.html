@@ -104,7 +104,7 @@
         <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="currentColor"/></svg>
       </button>
       <a href="tel:+916281738239" class="btn btn-ghost nav-call" data-magnetic>Call Now</a>
-      <a href="https://wa.me/916281738239" target="_blank" rel="noopener" class="btn btn-primary nav-whatsapp" data-magnetic>WhatsApp</a>
+      <a href="https://wa.me/916281738239?text=Hi%20Neeru%20Spaces%2C%20I%20want%20to%20list%20my%20property.%0A%0AOwner%20name%3A%0AContact%20number%3A%0AProperty%20type%20%28home%2Foffice%2Fshop%2Fland%2Fother%29%3A%0AFull%20address%20%2F%20location%3A%0ABedrooms%3A%0ABathrooms%3A%0AProperty%20size%20%28sq%20ft%29%3A%0AExpected%20rent%20%2F%20price%3A%0ADeposit%3A%0AFurnishing%2C%20parking%20or%20amenities%3A%0AAvailable%20from%3A%0A%0AI%20will%20send%20property%20photos%20in%20this%20chat." target="_blank" rel="noopener" class="btn btn-primary nav-whatsapp" data-magnetic>List Your Property?</a>
     </div>
 
     <button class="nav-burger" id="navBurger" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -127,11 +127,11 @@
     <h1 class="hero-title reveal">
       <span class="typed-line" id="typedLine">Find Your Perfect Rental</span>
     </h1>
-    <p class="hero-sub reveal">Genuine clients. Verified tenants. Zero guesswork — rental, lease, commercial &amp; residential, handled the local way.</p>
+    <p class="hero-sub reveal">Genuine clients. Verified tenants. Zero guesswork; rental, lease, commercial &amp; residential, handled the local way.</p>
 
     <div class="hero-ctas reveal">
       <a href="#properties" class="btn btn-primary btn-lg" data-magnetic>View Properties</a>
-      <a href="#contact" class="btn btn-outline-light btn-lg" data-magnetic>List Your Property</a>
+      <a href="#list-property" class="btn btn-outline-light btn-lg" data-magnetic>List Your Property</a>
       <a href="https://wa.me/916281738239" target="_blank" rel="noopener" class="btn-icon-round" data-magnetic aria-label="WhatsApp us">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.11h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.2 8.2 0 0 1-1.27-4.32c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24z"/></svg>
       </a>
@@ -142,11 +142,11 @@
 
     <div class="hero-float-cards">
       <div class="glass-card float-card float-card-1">
-        <span class="stat-num" data-count="480">0</span><span class="stat-plus">+</span>
+        <div class="float-card-value"><span class="stat-num" data-count="10">0</span><span class="stat-plus">+</span></div>
         <span class="stat-label">Properties Listed</span>
       </div>
       <div class="glass-card float-card float-card-2">
-        <span class="stat-num" data-count="97">0</span><span class="stat-plus">%</span>
+        <div class="float-card-value"><span class="stat-num" data-count="97">0</span><span class="stat-plus">%</span></div>
         <span class="stat-label">Tenant Success Rate</span>
       </div>
     </div>
@@ -234,7 +234,7 @@
     </div>
     <div class="properties-grid" id="propertiesGrid"><!-- injected by script.js --></div>
     <div class="properties-empty" id="propertiesEmpty" hidden>
-      <p>No properties match those filters yet. Try widening your search.</p>
+      <p>No properties are listed right now. Please check back soon.</p>
     </div>
   </div>
 </section>
@@ -253,15 +253,16 @@
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-amenities" id="modalAmenities"></div>
       <div class="modal-map" id="modalMap">
-        <iframe title="Property location" loading="lazy" width="100%" height="220" style="border:0;border-radius:16px" src="https://maps.google.com/maps?q=Gajuwaka%20Visakhapatnam&z=14&output=embed"></iframe>
+        <iframe id="modalMapFrame" title="Property location" loading="lazy" width="100%" height="220" style="border:0;border-radius:16px" src="https://maps.google.com/maps?q=Gajuwaka%20Visakhapatnam&z=14&output=embed"></iframe>
+        <a id="modalMapLink" href="#" target="_blank" rel="noopener" hidden>Open property location in Google Maps</a>
       </div>
       <div class="modal-owner">
         <div>
-          <strong>Neeru Spaces</strong>
-          <span>Listing Consultant</span>
+          <strong id="modalOwnerName">Neeru Spaces</strong>
+          <span id="modalOwnerRole">Listing Consultant</span>
         </div>
         <div class="modal-owner-actions">
-          <a href="tel:+916281738239" class="btn btn-outline">Call Owner</a>
+          <a id="modalCallOwner" href="tel:+916281738239" class="btn btn-outline">Call Owner</a>
           <a href="https://wa.me/916281738239" target="_blank" rel="noopener" class="btn btn-primary">Inquire on WhatsApp</a>
         </div>
       </div>
@@ -332,11 +333,11 @@
 <!-- ================= STATISTICS ================= -->
 <section class="stats-section" id="stats">
   <div class="container stats-grid">
-    <div class="stat-item reveal"><span class="stat-num" data-count="480">0</span><span class="stat-plus">+</span><p>Properties Listed</p></div>
-    <div class="stat-item reveal"><span class="stat-num" data-count="1200">0</span><span class="stat-plus">+</span><p>Happy Clients</p></div>
-    <div class="stat-item reveal"><span class="stat-num" data-count="350">0</span><span class="stat-plus">+</span><p>Property Owners</p></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="10">0</span><span class="stat-plus">+</span><p>Properties Listed</p></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="12">0</span><span class="stat-plus">+</span><p>Happy Clients</p></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="35">0</span><span class="stat-plus">+</span><p>Property Owners</p></div>
     <div class="stat-item reveal"><span class="stat-num" data-count="97">0</span><span class="stat-plus">%</span><p>Tenant Success Rate</p></div>
-    <div class="stat-item reveal"><span class="stat-num" data-count="9">0</span><span class="stat-plus">+</span><p>Years Experience</p></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="2">0</span><span class="stat-plus">+</span><p>Years Experience</p></div>
   </div>
 </section>
 
@@ -369,22 +370,22 @@
         <div class="testimonial-card glass-card">
           <div class="stars">★★★★★</div>
           <p>"Neeru Spaces found us verified tenants within a week. No stress, no fake enquiries."</p>
-          <div class="testimonial-person"><img src="https://i.pravatar.cc/80?img=12" alt="Portrait of client Ramesh K." loading="lazy"><div><strong>Ramesh K.</strong><span>Property Owner, Gajuwaka</span></div></div>
+          <div class="testimonial-person"><span class="testimonial-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.5-4.2 3.5-6.5 8-6.5s7.5 2.3 8 6.5"/></svg></span><div><strong>Ramesh K.</strong><span>Property Owner, Gajuwaka</span></div></div>
         </div>
         <div class="testimonial-card glass-card">
           <div class="stars">★★★★★</div>
           <p>"They handled our shop's rental agreement end to end. Extremely professional team."</p>
-          <div class="testimonial-person"><img src="https://i.pravatar.cc/80?img=32" alt="Portrait of client Sunitha P." loading="lazy"><div><strong>Sunitha P.</strong><span>Shop Owner, MVP Colony</span></div></div>
+          <div class="testimonial-person"><span class="testimonial-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.5-4.2 3.5-6.5 8-6.5s7.5 2.3 8 6.5"/></svg></span><div><strong>Sunitha P.</strong><span>Shop Owner, MVP Colony</span></div></div>
         </div>
         <div class="testimonial-card glass-card">
           <div class="stars">★★★★★</div>
           <p>"Found our 2BHK in three days flat. Genuinely the best rental agency in Vizag."</p>
-          <div class="testimonial-person"><img src="https://i.pravatar.cc/80?img=45" alt="Portrait of client Arjun V." loading="lazy"><div><strong>Arjun V.</strong><span>Tenant, Madhurawada</span></div></div>
+          <div class="testimonial-person"><span class="testimonial-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.5-4.2 3.5-6.5 8-6.5s7.5 2.3 8 6.5"/></svg></span><div><strong>Arjun V.</strong><span>Tenant, Madhurawada</span></div></div>
         </div>
         <div class="testimonial-card glass-card">
           <div class="stars">★★★★★</div>
           <p>"Transparent pricing, no hidden charges. Highly recommend for land leasing."</p>
-          <div class="testimonial-person"><img src="https://i.pravatar.cc/80?img=57" alt="Portrait of client Lakshmi N." loading="lazy"><div><strong>Lakshmi N.</strong><span>Landowner, Pendurthi</span></div></div>
+          <div class="testimonial-person"><span class="testimonial-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.5-4.2 3.5-6.5 8-6.5s7.5 2.3 8 6.5"/></svg></span><div><strong>Lakshmi N.</strong><span>Landowner, Pendurthi</span></div></div>
         </div>
       </div>
       <div class="testimonial-dots" id="testimonialDots"></div>
@@ -410,26 +411,14 @@
       <h2>Property Gallery</h2>
     </div>
     <div class="gallery-masonry" id="galleryMasonry">
-      <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=600" alt="Modern living room interior" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=600" alt="Apartment balcony with city view" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=600" alt="Bright modern kitchen" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=600" alt="Spacious master bedroom" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=600" alt="Commercial office space" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?q=80&w=600" alt="Villa exterior with garden" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=600" alt="Elegant dining area" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=600" alt="Rooftop terrace at dusk" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- ================= VIDEO ================= -->
-<section class="video-section" id="video">
-  <div class="container">
-    <div class="video-frame reveal" style="background-image:linear-gradient(180deg, rgba(18,18,18,.2), rgba(18,18,18,.75)), url('https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?q=80&w=1400')">
-      <button class="play-btn" id="playBtn" aria-label="Play promo video">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <p>Watch: Inside a Neeru Spaces Verified Home</p>
+      <img src="photos/DrKeerthi/Building.jpeg" alt="Dr Keerthi property building exterior" loading="lazy">
+      <img src="photos/DrKeerthi/enterance.jpeg" alt="Entrance of Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/office1.jpeg" alt="Office interior at Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/office2.jpeg" alt="Office room at Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/office3.jpeg" alt="Interior space at Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/office4.jpeg" alt="Office space at Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/lobby.jpeg" alt="Lobby at Dr Keerthi property" loading="lazy">
+      <img src="photos/DrKeerthi/kitchen.jpeg" alt="Kitchen at Dr Keerthi property" loading="lazy">
     </div>
   </div>
 </section>
@@ -466,12 +455,31 @@
   </div>
 </section>
 
+<!-- ================= LIST YOUR PROPERTY ================= -->
+<section class="list-property-section" id="list-property">
+  <div class="container">
+    <div class="list-property-card reveal">
+      <div class="list-property-copy">
+        <p class="eyebrow">For Property Owners</p>
+        <h2>Want to List Your Property?</h2>
+        <p>Share a few details with our team on WhatsApp and we’ll help you get your property listed.</p>
+        <p class="list-property-note">Have photos ready? Send them in the WhatsApp chat after it opens.</p>
+      </div>
+      <a class="btn list-property-whatsapp" href="https://wa.me/916281738239?text=Hi%20Neeru%20Spaces%2C%20I%20want%20to%20list%20my%20property.%0A%0AOwner%20name%3A%0AContact%20number%3A%0AProperty%20type%20%28home%2Foffice%2Fshop%2Fland%2Fother%29%3A%0AFull%20address%20%2F%20location%3A%0ABedrooms%3A%0ABathrooms%3A%0AProperty%20size%20%28sq%20ft%29%3A%0AExpected%20rent%20%2F%20price%3A%0ADeposit%3A%0AFurnishing%2C%20parking%20or%20amenities%3A%0AAvailable%20from%3A%0A%0AI%20will%20send%20property%20photos%20in%20this%20chat." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.11h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.2 8.2 0 0 1-1.27-4.32c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24z"/></svg>
+        <span>List on WhatsApp</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="section-head reveal light">
       <p class="eyebrow">Get In Touch</p>
-      <h2>Let's Find Your Space</h2>
+      <h2>Let's Find Your <span class="contact-heading-accent">Space</span></h2>
     </div>
     <div class="contact-grid">
       <div class="contact-info reveal">
@@ -555,14 +563,6 @@
       <a href="#categories">Villas</a>
       <a href="#categories">Shops</a>
       <a href="#categories">Land</a>
-    </div>
-    <div class="footer-col footer-newsletter">
-      <h4>Newsletter</h4>
-      <p>New listings, straight to your inbox.</p>
-      <form class="newsletter-form" id="newsletterForm">
-        <input type="email" placeholder="Email address" required aria-label="Email address">
-        <button type="submit" aria-label="Subscribe">→</button>
-      </form>
     </div>
   </div>
   <div class="footer-bottom">
