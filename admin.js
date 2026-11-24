@@ -7,8 +7,8 @@
 const ADMIN_PASSWORD = 'admin123';
 const STORAGE_KEYS = {
   properties: 'neeru_properties',
-  propertiesReset: 'neeru_properties_reset_v1',
-  keerthiListingSeeded: 'neeru_keerthi_listing_seeded_v1',
+  propertiesReset: 'neeru_properties_reset_v7',
+  keerthiListingSeeded: 'neeru_keerthi_listing_seeded_v7',
   keerthiPhotosUpdated: 'neeru_keerthi_photos_updated_v5',
   admin: 'neeru_admin_auth'
 };
@@ -16,10 +16,10 @@ const DEFAULT_PROPERTY = {
   id: 'keerthi-office-clinic',
   title: 'Office / Clinic Space for Rent',
   ownerName: 'Dr Keerthi',
-  contact: '8220418415',
-  whatsapp: '918220418415',
+  contact: '6281738239',
+  whatsapp: '916281738239',
   location: 'Vinayakanagar Vuda colony, MIG 1/151, Vinayaka Nagar, Gonthinavanipalem, Pedagantyada, Gajuwaka, Andhra Pradesh 530044',
-  mapUrl: 'https://maps.app.goo.gl/HF9Xv4iXHdMkTDXo9?g_st=ac',
+  mapUrl: '',
   price: 25000,
   deposit: 50000,
   priceLabel: '₹25,000 / month · Deposit ₹50,000',
@@ -45,6 +45,136 @@ const DEFAULT_PROPERTY = {
   desc: 'Commercial space suitable for offices, clinics, physiotherapy, or diagnostic labs. Rent is ₹25,000 per month with a ₹50,000 deposit. Approximately 1,000 sft.',
   amenities: ['Suitable for Offices', 'Clinics', 'Physiotherapy', 'Diagnostic Labs']
 };
+
+const DEFAULT_PROPERTIES = [
+  DEFAULT_PROPERTY,
+  {
+    id: '26-58-112-property',
+    title: '26-58-11/2 Block',
+    ownerName: 'Neeru Spaces',
+    contact: '6281738239',
+    whatsapp: '916281738239',
+    location: '26-58-11/2, Prasanthi Nagar, Kanithi Road, Old Gajuwaka, Opp. Hanuman Statue, Andhra Pradesh 530026',
+    mapUrl: '',
+    price: 100000,
+    deposit: 700000,
+    priceLabel: '₹1,00,000 / month · Deposit ₹7,00,000',
+    type: 'Commercial',
+    category: 'Commercial',
+    beds: 0,
+    baths: 0,
+    area: '1,500 sft',
+    parking: '—',
+    furnished: '—',
+    badges: ['New', 'Verified'],
+    featured: false,
+    images: [
+      'photos/26-58-112/WhatsApp Image 2026-11-25 at 12.18.13 AM.jpeg',
+      'photos/26-58-112/WhatsApp Image 2026-11-25 at 12.18.14 AM (1).jpeg',
+      'photos/26-58-112/WhatsApp Image 2026-11-25 at 12.18.14 AM (2).jpeg',
+      'photos/26-58-112/WhatsApp Image 2026-11-25 at 12.18.14 AM.jpeg'
+    ],
+    desc: 'Commercial property at 26-58-11/2, Prasanthi Nagar, Kanithi Road, Old Gajuwaka, opposite the Hanuman Statue. The property has 1,500 sft of area. Monthly rent is ₹1 lakh with a ₹7 lakh deposit.',
+    amenities: ['Commercial Requirement', '1,500 sft', 'Opposite Hanuman Statue', 'Kanithi Road', 'Viewing by Appointment']
+  },
+  {
+    id: 'kalyan-towers-property',
+    title: 'Kalyan Towers',
+    ownerName: 'Neeru Spaces',
+    contact: '6281738239',
+    whatsapp: '916281738239',
+    location: 'Opposite to Steel Plant Arch on NH5, Visakhapatnam',
+    mapUrl: '',
+    price: 40000,
+    deposit: 120000,
+    priceLabel: '₹40,000 / month · Deposit ₹1,20,000',
+    type: 'Commercial',
+    category: 'Commercial',
+    beds: 0,
+    baths: 0,
+    area: '2,000 sft',
+    height: '10 feet',
+    parking: '—',
+    furnished: '—',
+    badges: ['New', 'Verified'],
+    featured: false,
+    images: [
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.32 AM.jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.33 AM (1).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.33 AM (2).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.33 AM.jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.34 AM (1).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.34 AM (2).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.34 AM (3).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.34 AM.jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.35 AM (1).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.35 AM (2).jpeg',
+      'photos/Kalyan towers/WhatsApp Image 2026-11-25 at 12.13.35 AM.jpeg'
+    ],
+    desc: 'Commercial property at Kalyan Towers, opposite the Steel Plant Arch on NH5. The property has 2,000 sft of area with a height of 10 feet. Monthly rent is ₹40,000 with a ₹1,20,000 deposit.',
+    amenities: ['NH5 Location', 'Opposite Steel Plant Arch', '2,000 sft', '10 Feet Height', 'Viewing by Appointment']
+  },
+  {
+    id: 'sre-plaza-property',
+    title: 'S.R.E Plaza',
+    ownerName: 'Neeru Spaces',
+    contact: '6281738239',
+    whatsapp: '916281738239',
+    location: 'Visakhapatnam',
+    mapUrl: '',
+    price: 0,
+    deposit: 0,
+    priceLabel: 'Price on request',
+    type: 'Commercial',
+    category: 'Commercial',
+    beds: 0,
+    baths: 0,
+    area: '—',
+    parking: '—',
+    furnished: '—',
+    badges: ['New', 'Verified'],
+    featured: false,
+    images: [
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.24 PM (1).jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.24 PM (2).jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.24 PM.jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.25 PM (1).jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.25 PM (2).jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.25 PM (3).jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.25 PM.jpeg',
+      'photos/S.R.E Plaza/WhatsApp Image 2026-11-24 at 11.32.26 PM.jpeg'
+    ],
+    desc: 'Commercial property listing for S.R.E Plaza. Contact Neeru Spaces for complete details and viewing.',
+    amenities: ['Photos Available', 'Viewing by Appointment']
+  },
+  {
+    id: 'bharathi-books-building',
+    title: '12-61-5/4 Block',
+    ownerName: 'Neeru Spaces',
+    contact: '6281738239',
+    whatsapp: '916281738239',
+    location: '12-61-5/4, Bharathi Books Building, Visakhapatnam',
+    mapUrl: '',
+    price: 40000,
+    deposit: 500000,
+    priceLabel: '₹40,000 / month · ₹5 lakh advance',
+    type: 'Commercial',
+    category: 'Commercial',
+    beds: 0,
+    baths: 0,
+    area: '1,300 sft',
+    parking: '—',
+    furnished: '—',
+    badges: ['New', 'Verified'],
+    featured: false,
+    images: [
+      'photos/bharathi books building/WhatsApp Image 2026-11-25 at 12.16.54 AM (1).jpeg',
+      'photos/bharathi books building/WhatsApp Image 2026-11-25 at 12.16.54 AM.jpeg'
+    ],
+    desc: 'Commercial block at 12-61-5/4, Bharathi Books Building, with 1,300 sft of area. Monthly rent is ₹40,000. The advance is ₹5 lakh, of which ₹3 lakh remains as advance while ₹10,000 per month is deducted from the remaining ₹2 lakh.',
+    amenities: ['1,300 sft', '₹5 lakh Advance', '₹3 lakh Retained Advance', '₹10,000 Monthly Advance Deduction', 'Viewing by Appointment']
+  }
+];
 
 /* ---------- Auth ---------- */
 const loginScreen = document.getElementById('loginScreen');
@@ -89,10 +219,10 @@ logoutBtn.addEventListener('click', () => {
 /* ---------- Data helpers ---------- */
 function getProperties() {
   if (localStorage.getItem(STORAGE_KEYS.propertiesReset) !== 'true') {
-    localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify([DEFAULT_PROPERTY]));
+    localStorage.setItem(STORAGE_KEYS.properties, JSON.stringify(DEFAULT_PROPERTIES));
     localStorage.setItem(STORAGE_KEYS.propertiesReset, 'true');
     localStorage.setItem(STORAGE_KEYS.keerthiListingSeeded, 'true');
-    return [DEFAULT_PROPERTY];
+    return DEFAULT_PROPERTIES.slice();
   }
 
   let properties = [];
